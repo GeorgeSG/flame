@@ -18,6 +18,7 @@ export const configTemplate: Config = {
   hideSearch: false,
   defaultSearchProvider: 'l',
   secondarySearchProvider: 'd',
+  autoClearSearch: false,
   dockerApps: false,
   dockerHost: 'localhost',
   kubernetesApps: false,

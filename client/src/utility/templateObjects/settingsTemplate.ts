@@ -20,6 +20,7 @@ export const uiSettingsTemplate: UISettingsForm = {
   hideDate: false,
   hideSearch: false,
   disableAutofocus: false,
+  autoClearSearch: false,
 };
 
 export const weatherSettingsTemplate: WeatherForm = {

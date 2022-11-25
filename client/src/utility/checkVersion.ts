@@ -5,7 +5,7 @@ import { createNotification } from '../store/action-creators';
 export const checkVersion = async (isForced: boolean = false) => {
   try {
     const res = await axios.get<string>(
-      'https://raw.githubusercontent.com/pawelmalak/flame/master/client/.env'
+      'https://raw.githubusercontent.com/GeorgeSG/flame/master/client/.env'
     );
 
     const githubVersion = res.data
@@ -17,7 +17,7 @@ export const checkVersion = async (isForced: boolean = false) => {
         createNotification({
           title: 'Info',
           message: 'New version is available!',
-          url: 'https://github.com/pawelmalak/flame/blob/master/CHANGELOG.md',
+          url: 'https://github.com/GeorgeSG/flame/blob/master/CHANGELOG.md',
         })
       );
     } else if (isForced) {

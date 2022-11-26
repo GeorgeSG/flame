@@ -75,7 +75,10 @@ export const WeatherWidget = (): JSX.Element => {
               )}
 
               {/* ADDITIONAL DATA */}
-              <span>{weather[config.weatherData]}%</span>
+              <span>
+                {weather.conditionText} · 
+                {weather[config.weatherData]}%
+              </span>
             </div>
           </Fragment>
         ))}

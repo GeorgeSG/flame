@@ -41,7 +41,7 @@ export const AppCard = ({ app }: Props): JSX.Element => {
       </div>
     );
   } else {
-    iconEl = <Icon icon={iconParser(icon)} />;
+    iconEl = <Icon icon={icon} />;
   }
 
   return (

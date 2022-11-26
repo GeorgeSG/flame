@@ -164,11 +164,19 @@ export const AppForm = ({ modalHandler }: Props): JSX.Element => {
             onChange={(e) => inputChangeHandler(e)}
           />
           <span>
-            Use icon name from MDI or pass a valid URL.
+            Use icon name from{' '}
             <a href="https://materialdesignicons.com/" target="blank">
-              {' '}
-              Click here for reference
+              MDI
             </a>
+            , icon name from{' '}
+            <a
+              href="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              dashboard-icons
+            </a>
+            , or pass a valid URL.
           </span>
           <span
             onClick={() => toggleUseCustomIcon(!useCustomIcon)}
@@ -196,7 +204,7 @@ export const AppForm = ({ modalHandler }: Props): JSX.Element => {
             }}
             className={classes.Switch}
           >
-            Switch to MDI
+            Switch to icon name
           </span>
         </InputGroup>
       )}

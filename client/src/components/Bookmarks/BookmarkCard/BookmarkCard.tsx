@@ -81,7 +81,7 @@ export const BookmarkCard = (props: Props): JSX.Element => {
             } else {
               iconEl = (
                 <div className={classes.BookmarkIcon}>
-                  <Icon icon={iconParser(icon)} />
+                  <Icon icon={icon} />
                 </div>
               );
             }

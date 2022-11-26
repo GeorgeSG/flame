@@ -1,4 +1,4 @@
-import { useRef, useEffect, KeyboardEvent } from 'react';
+import { useRef, useEffect, KeyboardEvent, useState } from 'react';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,10 @@ export const SearchBar = (props: Props): JSX.Element => {
   const { setLocalSearch, appSearchResult, bookmarkSearchResult } = props;
 
   const inputRef = useRef<HTMLInputElement>(document.createElement('input'));
+
+  const [searchProvider, setSearchProvider] = useState(
+    searchParser('').primarySearch.name
+  );
 
   // Search bar autofocus
   useEffect(() => {
@@ -78,6 +82,11 @@ export const SearchBar = (props: Props): JSX.Element => {
       setLocalSearch(encodedURL);
     }
 
+    if (primarySearch.name) {
+      console.log(primarySearch);
+      setSearchProvider(primarySearch.name);
+    }
+
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (!primarySearch.prefix) {
         // Prefix not found -> emit notification
@@ -113,7 +122,7 @@ export const SearchBar = (props: Props): JSX.Element => {
         const url = `${primarySearch.template}${encodedURL}`;
         redirectUrl(url, sameTab);
       }
-      if(config.autoClearSearch) clearSearch();
+      if (config.autoClearSearch) clearSearch();
     } else if (e.code === 'Escape') {
       clearSearch();
     }
@@ -121,6 +130,9 @@ export const SearchBar = (props: Props): JSX.Element => {
 
   return (
     <div className={classes.SearchContainer}>
+      {!config.hideSearchProvider && (
+        <span className={classes.SearchProvider}>{searchProvider}</span>
+      )}
       <input
         ref={inputRef}
         type="text"

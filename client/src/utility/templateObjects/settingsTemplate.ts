@@ -19,6 +19,7 @@ export const uiSettingsTemplate: UISettingsForm = {
   showTime: false,
   hideDate: false,
   hideSearch: false,
+  hideSearchProvider: false,
   disableAutofocus: false,
   autoClearSearch: false,
 };

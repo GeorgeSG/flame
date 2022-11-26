@@ -16,6 +16,7 @@ export interface Config {
   hideApps: boolean;
   hideCategories: boolean;
   hideSearch: boolean;
+  hideSearchProvider: boolean;
   defaultSearchProvider: string;
   secondarySearchProvider: string;
   autoClearSearch: boolean;

@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY ./client .
 
-RUN npm install --production \
+RUN npm install \
     && npm run build
 
 FROM node:lts-alpine

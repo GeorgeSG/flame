@@ -1,19 +1,10 @@
-import { useRef, useEffect, KeyboardEvent, useState } from 'react';
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-
-// Typescript
+import { useAtomValue } from 'jotai';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { App, Category } from '../../interfaces';
-
-// CSS
+import { configAtom, configLoadingAtom } from '../../state/config';
+import { useCreateNotification } from '../../state/notification';
+import { redirectUrl, urlParser, useSearchParser } from '../../utility';
 import classes from './SearchBar.module.css';
-
-// Utils
-import { searchParser, urlParser, redirectUrl } from '../../utility';
-import { State } from '../../store/reducers';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../store';
 
 interface Props {
   setLocalSearch: (query: string) => void;
@@ -22,10 +13,11 @@ interface Props {
 }
 
 export const SearchBar = (props: Props): JSX.Element => {
-  const { config, loading } = useSelector((state: State) => state.config);
+  const config = useAtomValue(configAtom);
+  const loading = useAtomValue(configLoadingAtom);
+  const searchParser = useSearchParser();
 
-  const dispatch = useDispatch();
-  const { createNotification } = bindActionCreators(actionCreators, dispatch);
+  const createNotification = useCreateNotification();
 
   const { setLocalSearch, appSearchResult, bookmarkSearchResult } = props;
 
@@ -83,7 +75,6 @@ export const SearchBar = (props: Props): JSX.Element => {
     }
 
     if (primarySearch.name) {
-      console.log(primarySearch);
       setSearchProvider(primarySearch.name);
     }
 

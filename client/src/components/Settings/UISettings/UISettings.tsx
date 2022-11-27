@@ -1,25 +1,18 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../../store/reducers';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../store';
-
-// Typescript
+import { useAtomValue } from 'jotai';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { UISettingsForm } from '../../../interfaces';
-
-// UI
-import { InputGroup, Button, SettingsHeadline } from '../../UI';
-
-// Utils
-import { uiSettingsTemplate, inputHandler } from '../../../utility';
+import {
+  configAtom,
+  configLoadingAtom,
+  useUpdateConfig,
+} from '../../../state/config';
+import { inputHandler, uiSettingsTemplate } from '../../../utility';
+import { Button, InputGroup, SettingsHeadline } from '../../UI';
 
 export const UISettings = (): JSX.Element => {
-  const { loading, config } = useSelector((state: State) => state.config);
-
-  const dispatch = useDispatch();
-  const { updateConfig } = bindActionCreators(actionCreators, dispatch);
+  const loading = useAtomValue(configLoadingAtom);
+  const config = useAtomValue(configAtom);
+  const updateConfig = useUpdateConfig();
 
   // Initial state
   const [formData, setFormData] = useState<UISettingsForm>(uiSettingsTemplate);

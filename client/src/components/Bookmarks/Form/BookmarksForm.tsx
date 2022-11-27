@@ -1,22 +1,19 @@
-import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../../store/reducers';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../store';
 
 // Typescript
+import { useAtomValue } from 'jotai';
 import { Bookmark, Category, NewBookmark } from '../../../interfaces';
-
-// UI
-import { ModalForm, InputGroup, Button } from '../../UI';
-
-// CSS
-import classes from './Form.module.css';
-
-// Utils
+import {
+  categoriesAtom,
+  useAddBookmark,
+  useUpdateBookmark,
+} from '../../../state/bookmark';
+import { useCreateNotification } from '../../../state/notification';
 import { inputHandler, newBookmarkTemplate } from '../../../utility';
+import { Button, InputGroup, ModalForm } from '../../UI';
+import classes from './Form.module.css';
 
 interface Props {
   modalHandler: () => void;
@@ -27,11 +24,11 @@ export const BookmarksForm = ({
   bookmark,
   modalHandler,
 }: Props): JSX.Element => {
-  const { categories } = useSelector((state: State) => state.bookmarks);
+  const createNotification = useCreateNotification();
 
-  const dispatch = useDispatch();
-  const { addBookmark, updateBookmark, createNotification } =
-    bindActionCreators(actionCreators, dispatch);
+  const categories = useAtomValue(categoriesAtom);
+  const addBookmark = useAddBookmark();
+  const updateBookmark = useUpdateBookmark();
 
   const [useCustomIcon, toggleUseCustomIcon] = useState<boolean>(false);
   const [customIcon, setCustomIcon] = useState<File | null>(null);

@@ -1,29 +1,22 @@
-import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
 import axios from 'axios';
-
-// Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../store';
-import { State } from '../../../store/reducers';
-
-// Typescript
+import { useAtomValue } from 'jotai';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { ApiResponse, Weather, WeatherForm } from '../../../interfaces';
-
-// UI
-import { InputGroup, Button, SettingsHeadline } from '../../UI';
-
-// Utils
+import {
+  configAtom,
+  configLoadingAtom,
+  useUpdateConfig,
+} from '../../../state/config';
+import { useCreateNotification } from '../../../state/notification';
 import { inputHandler, weatherSettingsTemplate } from '../../../utility';
+import { Button, InputGroup, SettingsHeadline } from '../../UI';
 
 export const WeatherSettings = (): JSX.Element => {
-  const { loading, config } = useSelector((state: State) => state.config);
+  const config = useAtomValue(configAtom);
+  const loading = useAtomValue(configLoadingAtom);
+  const updateConfig = useUpdateConfig();
 
-  const dispatch = useDispatch();
-  const { createNotification, updateConfig } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const createNotification = useCreateNotification();
 
   // Initial state
   const [formData, setFormData] = useState<WeatherForm>(

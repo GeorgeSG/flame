@@ -1,7 +1,6 @@
-import classes from './Icon.module.css';
-
 import { Icon as MDIcon } from '@mdi/react';
 import { iconParser } from '../../../../utility';
+import classes from './Icon.module.css';
 
 interface Props {
   icon: string;

@@ -1,27 +1,21 @@
-import { Fragment } from 'react';
-
-// UI
+import { useAtomValue } from 'jotai';
+import { authAtom } from '../../../state/auth';
+import { useCheckVersion } from '../../../utility';
 import { Button, SettingsHeadline } from '../../UI';
-import { AuthForm } from './AuthForm/AuthForm';
 import classes from './AppDetails.module.css';
-
-// Store
-import { useSelector } from 'react-redux';
-import { State } from '../../../store/reducers';
-
-// Other
-import { checkVersion } from '../../../utility';
+import { AuthForm } from './AuthForm/AuthForm';
 
 export const AppDetails = (): JSX.Element => {
-  const { isAuthenticated } = useSelector((state: State) => state.auth);
+  const { isAuthenticated } = useAtomValue(authAtom);
+  const checkVersion = useCheckVersion(true);
 
   return (
-    <Fragment>
+    <>
       <SettingsHeadline text="Authentication" />
       <AuthForm />
 
       {isAuthenticated && (
-        <Fragment>
+        <>
           <hr className={classes.separator} />
 
           <div>
@@ -48,10 +42,10 @@ export const AppDetails = (): JSX.Element => {
               </a>
             </p>
 
-            <Button click={() => checkVersion(true)}>Check for updates</Button>
+            <Button click={checkVersion}>Check for updates</Button>
           </div>
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };

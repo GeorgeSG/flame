@@ -7,6 +7,7 @@ import { Bookmarks } from './components/Bookmarks/Bookmarks';
 import { Home } from './components/Home/Home';
 import { NotificationCenter } from './components/NotificationCenter/NotificationCenter';
 import { Settings } from './components/Settings/Settings';
+import { Spinner } from './components/UI';
 import { useAutoLogin, useLogout } from './state/auth';
 import { configAtom, configLoadingAtom, useFetchConfig } from './state/config';
 import { infoMessage, useCreateNotification } from './state/notification';
@@ -79,7 +80,7 @@ export const App = (): JSX.Element => {
   }, [loading]);
 
   if (loading) {
-    return <></>;
+    return <Spinner />;
   }
 
   return (

@@ -2,6 +2,16 @@
 
 ![Homescreen screenshot](.github/home.png)
 
+## GeorgeSG/flame
+
+This is a fork of https://github.com/pawelmalak/flame.
+
+I forked because I wanted to try using Flame, but it seems it's abandoned with 100 issues and 25 open PRs.
+I decided to merge the changes from some of the open PRs in my `master` and go from there 🙂.
+
+Note: I was not an active Flame contributor. I have my own set of features I want to build on top of that.
+PRs are welcome though.
+
 ## Description
 
 Flame is self-hosted startpage for your server. Its design is inspired (heavily) by [SUI](https://github.com/jeroenpardon/sui). Flame is very easy to setup and use. With built-in editors, it allows you to setup your very own application hub in no time - no file editing necessary.

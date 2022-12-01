@@ -8,6 +8,7 @@ import {
 } from '../../../state/config';
 import { dockerSettingsTemplate, inputHandler } from '../../../utility';
 import { Button, InputGroup, SettingsHeadline } from '../../UI';
+import { Checkbox } from '../../UI/Checkbox/Checkbox';
 
 export const DockerSettings = (): JSX.Element => {
   const loading = useAtomValue(configLoadingAtom);
@@ -47,6 +48,9 @@ export const DockerSettings = (): JSX.Element => {
     });
   };
 
+  const onBooleanToggle = (prop: keyof DockerSettingsForm) =>
+    setFormData((prev) => ({ ...prev, [prop]: !prev[prop] }));
+
   return (
     <form onSubmit={(e) => formSubmitHandler(e)}>
       <SettingsHeadline text="Docker" />
@@ -64,49 +68,37 @@ export const DockerSettings = (): JSX.Element => {
       </InputGroup>
 
       {/* USE DOCKER API */}
-      <InputGroup>
-        <label htmlFor="dockerApps">Use Docker API</label>
-        <select
+      <InputGroup type="horizontal">
+        <Checkbox
           id="dockerApps"
-          name="dockerApps"
-          value={formData.dockerApps ? 1 : 0}
-          onChange={(e) => inputChangeHandler(e, { isBool: true })}
-        >
-          <option value={1}>True</option>
-          <option value={0}>False</option>
-        </select>
+          checked={formData.dockerApps}
+          onClick={() => onBooleanToggle('dockerApps')}
+        />
+        <label htmlFor="dockerApps">Use Docker API</label>
       </InputGroup>
 
       {/* UNPIN DOCKER APPS */}
-      <InputGroup>
+      <InputGroup type="horizontal">
+        <Checkbox
+          id="unpinStoppedApps"
+          checked={formData.unpinStoppedApps}
+          onClick={() => onBooleanToggle('unpinStoppedApps')}
+        />
         <label htmlFor="unpinStoppedApps">
           Unpin stopped containers / other apps
         </label>
-        <select
-          id="unpinStoppedApps"
-          name="unpinStoppedApps"
-          value={formData.unpinStoppedApps ? 1 : 0}
-          onChange={(e) => inputChangeHandler(e, { isBool: true })}
-        >
-          <option value={1}>True</option>
-          <option value={0}>False</option>
-        </select>
       </InputGroup>
 
       {/* KUBERNETES SETTINGS */}
       <SettingsHeadline text="Kubernetes" />
       {/* USE KUBERNETES */}
-      <InputGroup>
-        <label htmlFor="kubernetesApps">Use Kubernetes Ingress API</label>
-        <select
+      <InputGroup type="horizontal">
+        <Checkbox
           id="kubernetesApps"
-          name="kubernetesApps"
-          value={formData.kubernetesApps ? 1 : 0}
-          onChange={(e) => inputChangeHandler(e, { isBool: true })}
-        >
-          <option value={1}>True</option>
-          <option value={0}>False</option>
-        </select>
+          checked={formData.kubernetesApps}
+          onClick={() => onBooleanToggle('kubernetesApps')}
+        />
+        <label htmlFor="kubernetesApps">Use Kubernetes Ingress API</label>
       </InputGroup>
 
       <Button>Save changes</Button>

@@ -16,6 +16,7 @@ import { customQueriesAtom } from '../../../state/queries';
 import { generalSettingsTemplate, inputHandler } from '../../../utility';
 import { queries } from '../../../utility/searchQueries.json';
 import { Button, InputGroup, SettingsHeadline } from '../../UI';
+import { Checkbox } from '../../UI/Checkbox/Checkbox';
 import { CustomQueries } from './CustomQueries/CustomQueries';
 
 export const GeneralSettings = (): JSX.Element => {
@@ -61,6 +62,9 @@ export const GeneralSettings = (): JSX.Element => {
     }
   };
 
+  const onBooleanToggle = (prop: keyof GeneralForm) =>
+    setFormData((prev) => ({ ...prev, [prop]: !prev[prop] }));
+
   // Input handler
   const inputChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -100,67 +104,52 @@ export const GeneralSettings = (): JSX.Element => {
         {/* === APPS OPTIONS === */}
         <SettingsHeadline text="Apps" />
         {/* PIN APPS */}
-        <InputGroup>
+        <InputGroup type="horizontal">
+          <Checkbox
+            id="pinAppsByDefault"
+            name="pinAppsByDefault"
+            checked={formData.pinAppsByDefault}
+            onClick={() => onBooleanToggle('pinAppsByDefault')}
+          />
           <label htmlFor="pinAppsByDefault">
             Pin new applications by default
           </label>
-          <select
-            id="pinAppsByDefault"
-            name="pinAppsByDefault"
-            value={formData.pinAppsByDefault ? 1 : 0}
-            onChange={(e) => inputChangeHandler(e, { isBool: true })}
-          >
-            <option value={1}>True</option>
-            <option value={0}>False</option>
-          </select>
         </InputGroup>
 
         {/* APPS OPPENING */}
-        <InputGroup>
-          <label htmlFor="appsSameTab">Open applications in the same tab</label>
-          <select
+        <InputGroup type="horizontal">
+          <Checkbox
             id="appsSameTab"
-            name="appsSameTab"
-            value={formData.appsSameTab ? 1 : 0}
-            onChange={(e) => inputChangeHandler(e, { isBool: true })}
-          >
-            <option value={1}>True</option>
-            <option value={0}>False</option>
-          </select>
+            checked={formData.appsSameTab}
+            onClick={() => onBooleanToggle('appsSameTab')}
+          />
+          <label htmlFor="appsSameTab">Open applications in the same tab</label>
         </InputGroup>
 
         {/* === BOOKMARKS OPTIONS === */}
         <SettingsHeadline text="Bookmarks" />
         {/* PIN CATEGORIES */}
-        <InputGroup>
+        <InputGroup type="horizontal">
+          <Checkbox
+            id="pinCategoriesByDefault"
+            checked={formData.pinCategoriesByDefault}
+            onClick={() => onBooleanToggle('pinCategoriesByDefault')}
+          />
           <label htmlFor="pinCategoriesByDefault">
             Pin new categories by default
           </label>
-          <select
-            id="pinCategoriesByDefault"
-            name="pinCategoriesByDefault"
-            value={formData.pinCategoriesByDefault ? 1 : 0}
-            onChange={(e) => inputChangeHandler(e, { isBool: true })}
-          >
-            <option value={1}>True</option>
-            <option value={0}>False</option>
-          </select>
         </InputGroup>
 
         {/* BOOKMARKS OPPENING */}
-        <InputGroup>
+        <InputGroup type="horizontal">
+          <Checkbox
+            id="bookmarksSameTab"
+            checked={formData.bookmarksSameTab}
+            onClick={() => onBooleanToggle('bookmarksSameTab')}
+          />
           <label htmlFor="bookmarksSameTab">
             Open bookmarks in the same tab
           </label>
-          <select
-            id="bookmarksSameTab"
-            name="bookmarksSameTab"
-            value={formData.bookmarksSameTab ? 1 : 0}
-            onChange={(e) => inputChangeHandler(e, { isBool: true })}
-          >
-            <option value={1}>True</option>
-            <option value={0}>False</option>
-          </select>
         </InputGroup>
 
         {/* === SEARCH OPTIONS === */}
@@ -213,19 +202,15 @@ export const GeneralSettings = (): JSX.Element => {
           </InputGroup>
         )}
 
-        <InputGroup>
+        <InputGroup type="horizontal">
+          <Checkbox
+            id="searchSameTab"
+            checked={formData.searchSameTab}
+            onClick={() => onBooleanToggle('searchSameTab')}
+          />
           <label htmlFor="searchSameTab">
             Open search results in the same tab
           </label>
-          <select
-            id="searchSameTab"
-            name="searchSameTab"
-            value={formData.searchSameTab ? 1 : 0}
-            onChange={(e) => inputChangeHandler(e, { isBool: true })}
-          >
-            <option value={1}>True</option>
-            <option value={0}>False</option>
-          </select>
         </InputGroup>
 
         <Button>Save changes</Button>

@@ -1,36 +1,35 @@
-// React
-import { useState, useEffect, FormEvent, ChangeEvent, Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-// Typescript
-import { Query, GeneralForm } from '../../../interfaces';
-
-// Components
+import { useAtomValue } from 'jotai';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { GeneralForm, Query } from '../../../interfaces';
+import { useSetSortedApps } from '../../../state/app';
+import {
+  categoriesAtom,
+  useSetSortedCategories,
+  useSetSortedBookmarks,
+} from '../../../state/bookmark';
+import {
+  configAtom,
+  configLoadingAtom,
+  useUpdateConfig,
+} from '../../../state/config';
+import { customQueriesAtom } from '../../../state/queries';
+import { generalSettingsTemplate, inputHandler } from '../../../utility';
+import { queries } from '../../../utility/searchQueries.json';
+import { Button, InputGroup, SettingsHeadline } from '../../UI';
 import { CustomQueries } from './CustomQueries/CustomQueries';
 
-// UI
-import { Button, SettingsHeadline, InputGroup } from '../../UI';
-
-// Utils
-import { inputHandler, generalSettingsTemplate } from '../../../utility';
-
-// Data
-import { queries } from '../../../utility/searchQueries.json';
-
-// Redux
-import { State } from '../../../store/reducers';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../../store';
-
 export const GeneralSettings = (): JSX.Element => {
-  const {
-    config: { loading, customQueries, config },
-    bookmarks: { categories },
-  } = useSelector((state: State) => state);
+  const config = useAtomValue(configAtom);
+  const loading = useAtomValue(configLoadingAtom);
 
-  const dispatch = useDispatch();
-  const { updateConfig, sortApps, sortCategories, sortBookmarks } =
-    bindActionCreators(actionCreators, dispatch);
+  const updateConfig = useUpdateConfig();
+  const customQueries = useAtomValue(customQueriesAtom);
+
+  const setSortedApps = useSetSortedApps();
+
+  const categories = useAtomValue(categoriesAtom);
+  const setSortedCategories = useSetSortedCategories();
+  const setSortedBookmarks = useSetSortedBookmarks();
 
   // Initial state
   const [formData, setFormData] = useState<GeneralForm>(
@@ -53,11 +52,11 @@ export const GeneralSettings = (): JSX.Element => {
 
     // Sort entities with new settings
     if (formData.useOrdering !== config.useOrdering) {
-      sortApps();
-      sortCategories();
+      setSortedApps();
+      setSortedCategories();
 
       for (let { id } of categories) {
-        sortBookmarks(id);
+        setSortedBookmarks(id);
       }
     }
   };
@@ -76,7 +75,7 @@ export const GeneralSettings = (): JSX.Element => {
   };
 
   return (
-    <Fragment>
+    <>
       <form
         onSubmit={(e) => formSubmitHandler(e)}
         style={{ marginBottom: '30px' }}
@@ -235,6 +234,6 @@ export const GeneralSettings = (): JSX.Element => {
       {/* CUSTOM QUERIES */}
       <SettingsHeadline text="Custom search providers" />
       <CustomQueries />
-    </Fragment>
+    </>
   );
 };

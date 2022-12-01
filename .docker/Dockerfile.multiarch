@@ -5,13 +5,13 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN apk --no-cache --virtual build-dependencies add python python3 make g++ \
-    && npm install --production
+    && npm install
 
-COPY . .    
+COPY . .
 
 RUN mkdir -p ./public ./data \
     && cd ./client \
-    && npm install --production \
+    && npm install \
     && npm run build \
     && cd .. \
     && mv ./client/build/* ./public \

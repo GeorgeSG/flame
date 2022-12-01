@@ -28,7 +28,7 @@ export const searchParser = (searchQuery: string): SearchResult => {
   result.isURL = isUrlOrIp(searchQuery);
 
   // Match prefix and query
-  const splitQuery = searchQuery.match(/^\/([a-z]+)[ ](.+)$/i);
+  const splitQuery = searchQuery.match(/^\/([a-z]+)(.+)$/i);
 
   // Extract prefix
   const prefix = splitQuery ? splitQuery[1] : config.defaultSearchProvider;

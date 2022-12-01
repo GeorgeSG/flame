@@ -1,3 +1,7 @@
+.SearchProvider {
+  color: var(--color-accent);
+}
+
 .SearchBar {
   width: 100%;
   padding: 10px 0;

@@ -87,6 +87,19 @@ export const UISettings = (): JSX.Element => {
           <option value={0}>False</option>
         </select>
       </InputGroup>
+      {/* HIDE SEARCH PROVIDER*/}
+      <InputGroup>
+        <label htmlFor="hideSearchProvider">Hide search provider label</label>
+        <select
+          id="hideSearchProvider"
+          name="hideSearchProvider"
+          value={formData.hideSearchProvider ? 1 : 0}
+          onChange={(e) => inputChangeHandler(e, { isBool: true })}
+        >
+          <option value={1}>True</option>
+          <option value={0}>False</option>
+        </select>
+      </InputGroup>
 
       {/* AUTOFOCUS SEARCHBAR */}
       <InputGroup>
@@ -103,7 +116,9 @@ export const UISettings = (): JSX.Element => {
       </InputGroup>
 
       <InputGroup>
-        <label htmlFor="autoClearSearch">Automatically clear the search bar</label>
+        <label htmlFor="autoClearSearch">
+          Automatically clear the search bar
+        </label>
         <select
           id="autoClearSearch"
           name="autoClearSearch"

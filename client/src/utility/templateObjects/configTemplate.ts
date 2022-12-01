@@ -16,6 +16,7 @@ export const configTemplate: Config = {
   hideApps: false,
   hideCategories: false,
   hideSearch: false,
+  hideSearchProvider: false,
   defaultSearchProvider: 'l',
   secondarySearchProvider: 'd',
   autoClearSearch: false,
